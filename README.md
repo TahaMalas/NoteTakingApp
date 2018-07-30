@@ -9,7 +9,6 @@ This very simple project has been written in a really good and clean way impleme
 * [RxJava2](https://github.com/ReactiveX/RxJava) Reactive Extension Library for the JVM
 * [Room persistence library](https://developer.android.com/topic/libraries/architecture/room)
 * [Dagger2](https://github.com/google/dagger) depedency injection framework for Java and Android
-* [Butterknife](https://github.com/JakeWharton/butterknife) by the awesome [JakeWharton](https://github.com/JakeWharton)
 
 
 ## Version History
