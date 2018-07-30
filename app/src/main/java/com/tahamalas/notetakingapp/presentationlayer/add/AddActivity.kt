@@ -13,7 +13,7 @@ class AddActivity : BaseActivity<IAddPresenter>(), IAddView {
     override fun initViews() {
     }
 
-    override fun getContentView(): Int = R.layout.activity_main
+    override fun getContentView(): Int = R.layout.activity_detail
 
 
     override fun added() {

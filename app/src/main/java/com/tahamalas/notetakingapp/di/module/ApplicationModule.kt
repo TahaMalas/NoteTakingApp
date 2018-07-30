@@ -54,7 +54,9 @@ object ApplicationModule {
     @Provides
     @Singleton
     fun provideAppDatabase(context: Context, @Named("dbName") dbName: String): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, dbName).build()
+        return Room.databaseBuilder(context, AppDatabase::class.java, dbName)
+                .fallbackToDestructiveMigration()
+                .build()
     }
 
     @Provides
@@ -62,4 +64,5 @@ object ApplicationModule {
     fun provideAppRepository(appDao: AppDao): DbHelper {
         return AppRepository(appDao)
     }
+
 }

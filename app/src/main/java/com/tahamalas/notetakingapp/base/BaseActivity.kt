@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.v7.app.AppCompatActivity
-import butterknife.ButterKnife
 
 abstract class BaseActivity<P : IBasePresenter<IBaseView>> : IBaseView, AppCompatActivity() {
 
@@ -19,7 +18,6 @@ abstract class BaseActivity<P : IBasePresenter<IBaseView>> : IBaseView, AppCompa
 
         presenter = instantiatePresenter()
 
-        ButterKnife.bind(this)
         onViewReady(savedInstanceState, intent)
     }
 

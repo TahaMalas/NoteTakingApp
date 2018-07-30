@@ -13,7 +13,7 @@ class AddPresenter(addView: IAddView) : BasePresenter<IAddView>(addView), IAddPr
     lateinit var appRepository: DbHelper
 
     override fun addNote(name: String, detail: String) {
-        val note = Note("6776",name, detail)
+        val note = Note(131231231.toLong() ,name, detail)
         appRepository.updateNotes(note)
         view.added()
     }
