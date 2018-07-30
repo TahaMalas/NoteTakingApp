@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">NoteTakingApp</string>
+
+    <string name="somethingWentWrong">Something went wrong</string>
+
+</resources>
