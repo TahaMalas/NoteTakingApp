@@ -6,4 +6,6 @@ interface IAddView : IBaseView {
 
     fun added()
 
+    fun error(message: String)
+
 }

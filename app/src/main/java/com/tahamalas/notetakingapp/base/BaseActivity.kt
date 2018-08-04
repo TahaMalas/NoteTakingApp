@@ -27,13 +27,28 @@ abstract class BaseActivity<P : IBasePresenter<IBaseView>> : IBaseView, AppCompa
         initViews()
     }
 
-    protected fun showBackArrow() {
+    protected fun changeAppBarTitle(title: String) {
         supportActionBar?.apply {
             let {
-                setDisplayShowHomeEnabled(true)
+                this.title = title
+            }
+        }
+    }
+
+    protected fun showBackArrow() {
+        println(supportActionBar)
+        supportActionBar?.apply {
+            let {
+                setDisplayHomeAsUpEnabled(true)
                 setDisplayShowHomeEnabled(true)
             }
         }
+    }
+
+    @CallSuper
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 
     protected abstract fun instantiatePresenter(): P

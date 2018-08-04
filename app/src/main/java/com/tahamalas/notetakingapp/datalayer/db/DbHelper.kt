@@ -4,9 +4,14 @@ import com.tahamalas.notetakingapp.datalayer.Note
 import io.reactivex.Observable
 
 interface DbHelper {
-    fun deleteNote(note: Note)
 
-    fun updateNotes(note: Note)
+    fun deleteNotes(): Observable<Any>
+
+    fun deleteNote(note: Note): Observable<Any>
+
+    fun updateNote(note: Note): Observable<Any>
+
+    fun updateNotes(noteList: List<Note>): Observable<Any>
 
     fun getNotes(): Observable<List<Note>>
 

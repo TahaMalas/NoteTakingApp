@@ -21,6 +21,8 @@
         <activity android:name=".presentationlayer.add.AddActivity"
             />
 
+        <activity android:name=".presentationlayer.edit.EditActivity"/>
+
     </application>
 
 </manifest>

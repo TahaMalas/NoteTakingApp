@@ -1,24 +1,18 @@
 package com.tahamalas.notetakingapp.base
 
 import android.graphics.Color
-import android.support.v4.view.MotionEventCompat
+import android.support.annotation.CallSuper
 import android.support.v7.widget.RecyclerView
 import android.view.MotionEvent
 import android.view.View
-import com.tahamalas.notetakingapp.utils.ItemTouchHelperAdapter
-import com.tahamalas.notetakingapp.utils.ItemTouchHelperViewHolder
-import com.tahamalas.notetakingapp.utils.OnStartDragListener
+import android.support.v4.view.MotionEventCompat
+import com.tahamalas.notetakingapp.utils.*
 
 abstract class BaseAdapter<T, V: BaseAdapter.BaseViewHolder>(protected val items: MutableList<T>, protected val dragStartListener: OnStartDragListener) : RecyclerView.Adapter<V>(), ItemTouchHelperAdapter {
 
+    @CallSuper
     override fun onBindViewHolder(holder: V, position: Int) {
 
-        holder.itemView.setOnTouchListener { v, event ->
-            if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-                dragStartListener.onStartDrag(holder)
-            }
-            false
-        }
     }
 
     private fun swapItems(fromPosition: Int, toPosition: Int) {
@@ -35,11 +29,13 @@ abstract class BaseAdapter<T, V: BaseAdapter.BaseViewHolder>(protected val items
         notifyItemMoved(fromPosition, toPosition)
     }
 
+    @CallSuper
     override fun onItemDismiss(position: Int) {
         items.removeAt(position)
         notifyItemRemoved(position)
     }
 
+    @CallSuper
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
         swapItems(fromPosition, toPosition)
         return true

@@ -15,15 +15,14 @@ import com.tahamalas.notetakingapp.datalayer.Note
 import com.tahamalas.notetakingapp.domainlayer.display.DisplayPresenter
 import com.tahamalas.notetakingapp.domainlayer.display.IDisplayPresenter
 import com.tahamalas.notetakingapp.presentationlayer.add.AddActivity
-import com.tahamalas.notetakingapp.utils.OnStartDragListener
+import com.tahamalas.notetakingapp.presentationlayer.edit.EditActivity
+import com.tahamalas.notetakingapp.utils.*
 import kotlinx.android.synthetic.main.activity_detail.*
-import java.util.*
-import com.tahamalas.notetakingapp.utils.SimpleItemTouchHelper
+
+class DisplayActivity : BaseActivity<IDisplayPresenter>(), IDisplayView, OnStartDragListener, ItemTouchHelperView, OnItemClickListener {
 
 
-class DisplayActivity : BaseActivity<IDisplayPresenter>(), IDisplayView, OnStartDragListener {
-
-    private val items = mutableListOf<Note>()
+    private var items = mutableListOf<Note>()
     private lateinit var displayAdapter: DisplayAdapter
     private lateinit var itemTouchHelper: ItemTouchHelper
 
@@ -39,7 +38,14 @@ class DisplayActivity : BaseActivity<IDisplayPresenter>(), IDisplayView, OnStart
 
     override fun displayNotes(note: List<Note>) {
         println("DisplayActivity: ${note.size}")
+        if (note.isNotEmpty()) {
+            println(note[0])
+        }
+        if (items.isNotEmpty()) {
+            items.clear()
+        }
         items.addAll(note)
+        displayAdapter.notifyItemRangeChanged(0, items.count())
     }
 
     override fun showMessage(error: String) {
@@ -51,17 +57,15 @@ class DisplayActivity : BaseActivity<IDisplayPresenter>(), IDisplayView, OnStart
     }
 
     override fun initViews() {
-        displayAdapter = DisplayAdapter(items, this)
+        displayAdapter = DisplayAdapter(items, this, this, this)
         recyclerView.adapter = displayAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL))
-        loadDummyNotes()
 
-        val callback = SimpleItemTouchHelper(displayAdapter)
+        val callback = SimpleItemTouchHelper(this, displayAdapter)
         itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        displayAdapter.notifyDataSetChanged()
         presenter.loadNotes()
         fab.setOnClickListener { startActivity(Intent(this, AddActivity::class.java)) }
     }
@@ -70,11 +74,35 @@ class DisplayActivity : BaseActivity<IDisplayPresenter>(), IDisplayView, OnStart
 
     override fun getContentView() = R.layout.activity_detail
 
-    private fun loadDummyNotes() {
-        items.add(Note(Calendar.getInstance().timeInMillis, "Note1", "Note1 description"))
-        items.add(Note(Calendar.getInstance().timeInMillis, "Note2", "Note2 description"))
-        items.add(Note(Calendar.getInstance().timeInMillis, "Note3", "Note3 description"))
-        items.add(Note(Calendar.getInstance().timeInMillis, "Note4", "Note4 description"))
+    override fun onItemMoved(newListOfNote: MutableList<Note>) {
+        items = newListOfNote
+        presenter.updateNotes(items)
     }
 
+    override fun onItemDeleted(note: Note) {
+        presenter.deleteNote(note)
+    }
+
+    override fun onItemClickListener(position: Int) {
+        val intent = Intent(this, EditActivity::class.java)
+        val note = items[position]
+        intent.putExtra("time", note.date)
+        intent.putExtra("title", note.name)
+        intent.putExtra("description", note.description)
+        startActivity(intent)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        //OnItemAdded
+        RxBus.listen(MessageEvent::class.java).subscribe { messageEvent ->
+            println(messageEvent.eventId)
+            when (messageEvent.eventId) {
+                MessageEvent.ADDED_EVENT, MessageEvent.EDITED_EVENT -> {
+                    presenter.loadNotes()
+                    println("SOMETHING ${messageEvent.eventId}")
+                }
+            }
+        }
+    }
 }
