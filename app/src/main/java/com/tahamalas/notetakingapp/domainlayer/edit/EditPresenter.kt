@@ -9,7 +9,7 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-class EditPresener(editView: IEditView): BasePresenter<IEditView>(editView), IEditPresenter, Observer<Any>{
+class EditPresenter(editView: IEditView): BasePresenter<IEditView>(editView), IEditPresenter, Observer<Any>{
 
     @Inject
     lateinit var appRepository: DbHelper

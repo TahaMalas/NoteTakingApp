@@ -4,7 +4,7 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
 import com.tahamalas.notetakingapp.datalayer.Note
 
-@Database(entities = [(Note::class)], version = 2, exportSchema = false)
+@Database(entities = [(Note::class)], version = 4, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun appDao(): AppDao

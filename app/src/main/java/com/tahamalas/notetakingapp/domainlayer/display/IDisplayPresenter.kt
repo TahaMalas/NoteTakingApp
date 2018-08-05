@@ -12,6 +12,4 @@ interface IDisplayPresenter : IBasePresenter<IDisplayView> {
 
     fun updateNotes(notes: List<Note>)
 
-    fun updateNotess(notes: List<Note>)
-
 }

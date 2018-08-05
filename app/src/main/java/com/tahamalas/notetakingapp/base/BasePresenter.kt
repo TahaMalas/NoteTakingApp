@@ -5,7 +5,7 @@ import com.tahamalas.notetakingapp.di.component.PresenterInjector
 import com.tahamalas.notetakingapp.di.module.ApplicationModule
 import com.tahamalas.notetakingapp.domainlayer.add.AddPresenter
 import com.tahamalas.notetakingapp.domainlayer.display.DisplayPresenter
-import com.tahamalas.notetakingapp.domainlayer.edit.EditPresener
+import com.tahamalas.notetakingapp.domainlayer.edit.EditPresenter
 import com.tahamalas.notetakingapp.utils.DisposableManager
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -62,7 +62,7 @@ open class BasePresenter<out V : IBaseView>(protected val view: V) : IBasePresen
         when (this) {
             is DisplayPresenter -> injector.inject(this)
             is AddPresenter -> injector.inject(this)
-            is EditPresener -> injector.inject(this)
+            is EditPresenter -> injector.inject(this)
         }
     }
 

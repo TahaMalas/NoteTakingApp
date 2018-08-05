@@ -18,7 +18,7 @@ interface AppDao {
     @Insert(onConflict = REPLACE)
     fun updateNote(note: Note)
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     fun updateNotes(notesList: List<Note>)
 
     @Query("SELECT * FROM note")

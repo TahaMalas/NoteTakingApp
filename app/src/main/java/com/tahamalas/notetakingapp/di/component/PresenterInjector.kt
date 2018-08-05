@@ -4,7 +4,7 @@ import com.tahamalas.notetakingapp.base.IBaseView
 import com.tahamalas.notetakingapp.di.module.ApplicationModule
 import com.tahamalas.notetakingapp.domainlayer.add.AddPresenter
 import com.tahamalas.notetakingapp.domainlayer.display.DisplayPresenter
-import com.tahamalas.notetakingapp.domainlayer.edit.EditPresener
+import com.tahamalas.notetakingapp.domainlayer.edit.EditPresenter
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -20,8 +20,7 @@ interface PresenterInjector {
 
     fun inject(addPresenter: AddPresenter)
 
-    fun inject(editPresener: EditPresener)
-
+    fun inject(editPresenter: EditPresenter)
 
     @Component.Builder
     interface Builder {

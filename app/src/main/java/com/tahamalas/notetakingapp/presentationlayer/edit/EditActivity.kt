@@ -4,7 +4,7 @@ import android.widget.Toast
 import com.tahamalas.notetakingapp.R
 import com.tahamalas.notetakingapp.base.BaseActivity
 import com.tahamalas.notetakingapp.datalayer.Note
-import com.tahamalas.notetakingapp.domainlayer.edit.EditPresener
+import com.tahamalas.notetakingapp.domainlayer.edit.EditPresenter
 import com.tahamalas.notetakingapp.domainlayer.edit.IEditPresenter
 import com.tahamalas.notetakingapp.utils.MessageEvent
 import com.tahamalas.notetakingapp.utils.RxBus
@@ -24,7 +24,7 @@ class EditActivity : BaseActivity<IEditPresenter>() , IEditView {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun instantiatePresenter() = EditPresener(this)
+    override fun instantiatePresenter() = EditPresenter(this)
 
     override fun initViews() {
         if (intent.hasExtra("time") and intent.hasExtra("title") and intent.hasExtra("description")) {

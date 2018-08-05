@@ -6,8 +6,10 @@ import com.tahamalas.notetakingapp.datalayer.Note
 import com.tahamalas.notetakingapp.datalayer.db.DbHelper
 import com.tahamalas.notetakingapp.presentationlayer.display.IDisplayView
 import com.tahamalas.notetakingapp.utils.DisposableManager
+import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
+import java.util.*
 import javax.inject.Inject
 
 class DisplayPresenter(displayView: IDisplayView) : BasePresenter<IDisplayView>(displayView), IDisplayPresenter, Observer<List<Note>> {
@@ -64,31 +66,16 @@ class DisplayPresenter(displayView: IDisplayView) : BasePresenter<IDisplayView>(
     }
 
     override fun updateNotes(notes: List<Note>) {
-        subscribe(appRepository.deleteNotes(), object : Observer<Any> {
+        var counter = 0
+        notes.forEach {
+            it.date = Calendar.getInstance().timeInMillis + counter
+            counter++
+        }
+
+        subscribe(Observable.merge(appRepository.deleteNotes(), appRepository.updateNotes(notes)), object : Observer<Any> {
             override fun onComplete() {
                 println("DisplayPresenter: Notes deleted")
                 view.showMessage("DELETED")
-                updateNotess(notes)
-            }
-
-            override fun onSubscribe(d: Disposable) {
-                DisposableManager.add(d)
-            }
-
-            override fun onNext(t: Any) {
-
-            }
-
-            override fun onError(e: Throwable) {
-                view.showMessage(e.message!!)
-            }
-        })
-
-    }
-
-    override fun updateNotess(notes: List<Note>) {
-        subscribe(appRepository.updateNotes(notes), object : Observer<Any> {
-            override fun onComplete() {
                 println("DisplayPresenter: Notes inserted")
                 view.showMessage("INSERTED")
             }
@@ -104,7 +91,9 @@ class DisplayPresenter(displayView: IDisplayView) : BasePresenter<IDisplayView>(
             override fun onError(e: Throwable) {
                 view.showMessage(e.message!!)
             }
+
         })
+
     }
 
 }

@@ -3,10 +3,10 @@ package com.tahamalas.notetakingapp.base
 import android.graphics.Color
 import android.support.annotation.CallSuper
 import android.support.v7.widget.RecyclerView
-import android.view.MotionEvent
 import android.view.View
-import android.support.v4.view.MotionEventCompat
-import com.tahamalas.notetakingapp.utils.*
+import com.tahamalas.notetakingapp.utils.ItemTouchHelperAdapter
+import com.tahamalas.notetakingapp.utils.ItemTouchHelperViewHolder
+import com.tahamalas.notetakingapp.utils.OnStartDragListener
 
 abstract class BaseAdapter<T, V: BaseAdapter.BaseViewHolder>(protected val items: MutableList<T>, protected val dragStartListener: OnStartDragListener) : RecyclerView.Adapter<V>(), ItemTouchHelperAdapter {
 
