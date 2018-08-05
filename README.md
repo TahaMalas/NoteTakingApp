@@ -11,9 +11,9 @@ This very simple project has been written in a really good and clean way impleme
 * [Dagger2](https://github.com/google/dagger) depedency injection framework for Java and Android
 
 
-## Version History
+## Simple Demo
 
-* Please note that the app is still under development
+![](Demo.gif)
 
 ## License
 
