@@ -1,5 +1,5 @@
 /**
- *Source largely taken from this OS repo: https://github.com/googlesamples/android-architecture-components/blob/master/GithubBrowserSample/versions.gradle
+ * Source largely taken from this OS repo: https://github.com/googlesamples/android-architecture-components/blob/master/GithubBrowserSample/versions.gradle
  * Thank you to everyone involved in this awesome OS project!
  *
  * In this file, we basically build a tree of deps in a very DRY way.
@@ -17,6 +17,7 @@ ext.deps = [:]
 def versions = [:]
 versions.lifecycle = "1.1.1"
 versions.room = "1.1.1"
+versions.navigation = "1.0.0-alpha06"
 versions.support = "28.0.0"
 versions.junit = "4.12"
 versions.espresso = "3.0.1"
@@ -61,6 +62,13 @@ kotlin.kotlin_gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versio
 kotlin.coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutine_version"
 kotlin.coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutine_version"
 deps.kotlin = kotlin
+
+def navigation = [:]
+
+navigation.fragment = "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
+navigation.ui = "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
+navigation.testing = "android.arch.navigation:navigation-testing-ktx:$versions.navigation"
+deps.navigation = navigation
 
 def dagger = [:]
 

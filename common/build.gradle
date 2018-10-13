@@ -1,0 +1,13 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+apply plugin: 'java-library'
+
+dependencies {
+    implementation deps.kotlin.kotlin_jre
+    implementation deps.kotlin.coroutines_core
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"

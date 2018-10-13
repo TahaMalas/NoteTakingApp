@@ -7,11 +7,11 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion build_versions.target_sdk
     defaultConfig {
         applicationId "com.appagroup.nawa"
-        minSdkVersion 19
-        targetSdkVersion 28
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -47,23 +47,33 @@ dependencies {
     implementation deps.kotlin.coroutines_core
     implementation deps.kotlin.coroutines_android
 
-    testImplementation deps.test.junit
-    testImplementation deps.test.mockito
-    testImplementation deps.test.kotlin_junit
-    testImplementation deps.test.test_runner
-    testImplementation deps.test.test_rules
-
     kapt deps.android.lifecycle_compiler
-    //Currently causing errors!
+
+
+    //Dagger
     implementation deps.dagger.main
     implementation deps.dagger.android
     implementation deps.dagger.android_support
     kapt deps.dagger.compiler_apt
     kapt deps.dagger.android_apt
 
+    //Room
     implementation deps.room.runtime
     kapt deps.room.compiler
     androidTestImplementation deps.room.testing
+
+    //Navigation
+    implementation deps.navigation.fragment
+    implementation deps.navigation.ui
+    androidTestImplementation deps.navigation.testing
+
+
+    //Testing
+    testImplementation deps.test.junit
+    testImplementation deps.test.mockito
+    testImplementation deps.test.kotlin_junit
+    testImplementation deps.test.test_runner
+    testImplementation deps.test.test_rules
 
 }
 repositories {

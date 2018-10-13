@@ -4,12 +4,24 @@ plugins {
 apply plugin: 'java-library'
 
 dependencies {
+
+    implementation project(":common")
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation deps.kotlin.kotlin_jre
+    implementation deps.kotlin.coroutines_core
+    implementation deps.kotlin.coroutines_android
+
+    //Testing
+    testImplementation deps.test.junit
+    testImplementation deps.test.mockito
+    testImplementation deps.test.kotlin_junit
+    testImplementation deps.test.test_runner
+    testImplementation deps.test.test_rules
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
 repositories {
     mavenCentral()
 }
